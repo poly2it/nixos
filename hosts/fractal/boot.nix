@@ -15,8 +15,9 @@
     efiSysMountPoint = "/boot/efi";
   };
 
-  boot.kernelPackages = pkgs.linuxPackages_6_10;
+  boot.kernelPackages = pkgs.linuxPackages_6_11;
   boot.kernelModules = [ "kvm-intel "];
+  boot.kernelParams = [ "pcie_aspm=off" ];
 
   boot.initrd.luks.devices = {
     root = {

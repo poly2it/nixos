@@ -10,6 +10,7 @@
   home.shellAliases = {
     la = "ls -A";
     ll = "la -l -h";
+    v = "nvim";
   };
 
   programs.bash = {

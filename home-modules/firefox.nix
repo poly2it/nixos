@@ -25,6 +25,14 @@ let
       url = "https://www.kernel.org";
     }
     {
+      name = "uops.info";
+      url = "https://uops.info/table.html";
+    }
+    {
+      name = "MVP Demo";
+      url = "https://jdeokkim.github.io/projects/mvp-demo/";
+    }
+    {
       name = "Nix Sites";
       toolbar = true;
       bookmarks = [
@@ -254,7 +262,7 @@ let
       bookmarks = bookmarksI2p;
       search = searchI2p;
 
-      extensions = [
+      extensions.packages = [
         (pkgs.callPackage ./firefox-i2p {})
       ];
 
@@ -384,6 +392,9 @@ let
 
     # Set UI density to normal.
     "browser.uidensity" = 0;
+
+    # GNOME scrollbars
+    "ui.useOverlayScrollbars" = true;
 
     # Enable SVG context-propertes.
     "svg.context-properties.content.enabled" = true;
@@ -874,6 +885,14 @@ let
 
     # https://blog.privacyguides.org/2024/07/14/mozilla-disappoints-us-yet-again-2/
     "dom.private-attribution.submission.enabled" = false;
+
+    # This must be an advanced joke :)
+    "browser.ml.chat.enabled" = false;
+    "browser.ml.chat.provider" = localhost;
+    "browser.ml.modelHubRootUrl" = localhost;
+
+    # Enable JXL format.
+    "image.jxl.enabled" = true;
   };
   preferencesExtended = {
     # Don't install openh264 codec.
@@ -902,6 +921,7 @@ let
     # is blocked until reactivation elsewhere.
     # "extensions.autoDisableScopes" = 0;
   };
+
   # We want to lock as many preferences as possible. Having the configuration
   # state be mutable is a light security risk, and conflicts with the goal of
   # immutability.
@@ -967,17 +987,19 @@ let
     (map (namespace: startsWith namespace preference) policyNamespaces)
   );
 
-  mkPolicyPreferences = prefs:
+  mkPolicyPreferences = (prefs:
     (lib.mapAttrs
       (key: value: lock value)
       (lib.filterAttrs (key: value: (preferenceAppliesToPolicies key)) prefs)
-    );
+    )
+  );
 
-  mkUserPreferences = prefs:
+  mkUserPreferences = (prefs:
     (lib.mapAttrs
       (key: value: value)
       (lib.filterAttrs (key: value: !(preferenceAppliesToPolicies key)) prefs)
-    );
+    )
+  );
 
   lock = value: {
     Value = value;
@@ -990,10 +1012,9 @@ let
       "set" = "string";
     }.${builtins.typeOf value};
   };
-  localhost = "http://127.0.0.1/";
-in
 
-{
+  localhost = "http://127.0.0.1/";
+in {
   home.file.".mozilla/firefox/default/chrome/firefox-gnome-theme".source = inputs.firefox-gnome-theme;
   home.file.".mozilla/firefox/unsafe/chrome/firefox-gnome-theme".source = inputs.firefox-gnome-theme;
   home.file.".mozilla/firefox/i2p/chrome/firefox-gnome-theme".source = inputs.firefox-gnome-theme;

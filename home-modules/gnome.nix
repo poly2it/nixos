@@ -130,6 +130,19 @@ in
       ];
       translate = false;
     };
+
+    "de/schmidhuberj/tubefeeder" = {
+      player = "${pkgs.celluloid}/bin/celluloid";
+      downloader = "${pkgs.yt-dlp}/bin/yt-dlp";
+      piped-api-urls = [
+        "https://pipedapi.kavin.rocks/"
+        "https://pipedapi-libre.kavin.rocks/"
+        "https://pipedapi.leptons.xyz/"
+        "https://api.piped.private.coffee/"
+        "https://pipedapi.reallyaweso.me/"
+      ];
+      play-external-default = true;
+    };
   }) [
   (x: lib.attrsets.recursiveUpdate x (
     mkAppLayout [
@@ -140,6 +153,7 @@ in
       "org.gnome.Weather"
       "io.gitlab.news_flash.NewsFlash"
       "signal-desktop"
+      "thunderbird"
       "org.gnome.Calculator"
       (mkFolder "Utilities" [
         "io.missioncenter.MissionCenter"
@@ -151,6 +165,8 @@ in
         "com.github.finefindus.eyedropper"
         "fr.romainvigier.MetadataCleaner"
         "mullvad-vpn"
+        "com.usebottles.bottles"
+        "com.nickvision.tagger"
       ])
       (mkFolder "File Handlers" [
         "org.gnome.Loupe"
@@ -160,6 +176,7 @@ in
         "io.bassi.Amberol"
         "org.inkscape.Inkscape"
         "org.gnome.FileRoller"
+        "org.gnome.gitlab.somas.Apostrophe"
       ])
       (mkFolder "Merriment" [
         "dev.bragefuglseth.Keypunch"

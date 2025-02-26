@@ -11,12 +11,13 @@
     ../home-modules/hidden-apps.nix
     ../home-modules/xdg.nix
     ../home-modules/packages.nix
+    ../home-modules/hyprland.nix
+    ../home-modules/anyrun.nix
   ];
 
   home.stateVersion = "24.11";
 
   home.shellAliases = {
-    nvim = "nix run \"$\{HOME}/.config/nvim\"";
   };
 }
 

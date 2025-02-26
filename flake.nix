@@ -14,6 +14,22 @@
     };
     firefox-nightly.url = "github:nix-community/flake-firefox-nightly";
     flatpaks.url = "github:GermanBread/declarative-flatpak/stable-v3";
+    anyrun = {
+      url = "github:anyrun-org/anyrun";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    nixpak = {
+      url = "github:nixpak/nixpak";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    nixpak-pkgs = {
+      url = "github:nixpak/pkgs";
+      inputs.nixpak.follows = "nixpak";
+    };
+    nvim = {
+      url = "github:poly2it/nvim";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = inputs @ { nixpkgs, home-manager, flatpaks, ... }:
@@ -29,6 +45,7 @@
         "nvidia-persistenced"
       ];
     };
+
     inherit (pkgs) lib;
     mkUser = username: { configuration, home ? "/home/${username}" }: {
       users.users.${username} = {
@@ -55,9 +72,11 @@
         ./modules/packages.nix
         ./modules/vm.nix
         ./modules/printing.nix
+        ./modules/security.nix
+        ./modules/update.nix
         inputs.chaotic.nixosModules.default
         home-manager.nixosModules.home-manager
-        flatpaks.nixosModules.default
+        flatpaks.nixosModules.declarative-flatpak
         {
           networking.hostName = hostname;
           users.users.gdm = { extraGroups = [ "video" ]; };

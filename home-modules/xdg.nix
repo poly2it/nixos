@@ -8,7 +8,6 @@ in
     extraPortals = with pkgs; [
       xdg-desktop-portal-wlr
       xdg-desktop-portal-gtk
-      xdg-desktop-portal-gnome
       xdg-desktop-portal-hyprland
     ];
 
@@ -35,4 +34,8 @@ in
       "XDG_STATE_HOME" = "${home}/.local/state";
     };
   };
+
+
+  home.file."pictures/wallpapers".source = ../wallpapers;
 }
+
