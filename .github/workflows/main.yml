@@ -3,7 +3,7 @@ on:
   schedule:
     # Minute 0, hour 0, any day, month and weekday.
     - cron: '0 0 * * *'
-  workflow-dispatch:
+  workflow_dispatch:
 jobs:
   update-flake:
     runs-on: ubuntu-latest
