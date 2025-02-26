@@ -1,0 +1,29 @@
+name: Daily Flake Update
+on:
+  schedule:
+    # Minute 0, hour 0, any day, month and weekday.
+    - cron: '0 0 * * *'
+  workflow-dispatch:
+jobs:
+  update-flake:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install Nix
+        uses: DeterminateSystems/nix-installer-action@main
+
+      - run: nix flake update
+
+      - uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: Update flake.lock
+          branch: master
+          commit_options: '--no-verify --signoff'
+          file_pattern: flake.lock
+          skip_dirty_check: false
+          skip_fetch: true
+
