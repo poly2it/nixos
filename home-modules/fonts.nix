@@ -2,7 +2,7 @@
 
 {
   home.packages = with pkgs; [
-    (nerdfonts.override { fonts = [ "NerdFontsSymbolsOnly" ]; })
+    nerd-fonts.symbols-only
     noto-fonts-emoji
     iosevka
     cantarell-fonts

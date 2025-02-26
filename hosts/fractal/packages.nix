@@ -9,7 +9,7 @@
 
     signal-desktop
 
-    zeroad
+    thunderbird-latest
   ];
 
   services.mullvad-vpn = {
@@ -23,8 +23,7 @@
     "flathub:app/com.valvesoftware.Steam//stable"
     "flathub:app/com.usebottles.bottles//stable"
     "flathub:app/io.github.nokse22.Exhibit//stable"
-    "flathub:app/io.bassi.Amberol//stable"
-    "flathub:app/dev.geopjr.Calligraphy//stable"
+    "flathub:app/com.heroicgameslauncher.hgl//stable"
   ];
 
   services.syncthing = {

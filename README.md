@@ -33,3 +33,6 @@ The configuration for hiding unwanted desktop files was
 with permission
 from [Max Headroom](https://github.com/max-privatevoid).
 
+The configuration for updating the repository stems from
+[forrestjacobs.com](https://github.com/forrestjacobs/forrestjacobs.com).
+

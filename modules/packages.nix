@@ -5,6 +5,8 @@
   ];
 
   environment.systemPackages = with pkgs; [
+    gvfs
+
     wget
     git
 
@@ -24,6 +26,9 @@
     eyedropper
   ];
 
+  programs.git.config.init.defaultBranch = "master";
+
+  services.gvfs.enable = true;
   services.flatpak.enable = true;
   services.flatpak.remotes = {
     "flathub" = "https://dl.flathub.org/repo/flathub.flatpakrepo";
@@ -31,5 +36,7 @@
   };
 
   services.journald.storage = "persistent";
+
+  programs.hyprland.enable = true;
 }
 
