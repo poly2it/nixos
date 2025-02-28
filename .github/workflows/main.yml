@@ -16,7 +16,7 @@ jobs:
       - name: Install Nix
         uses: DeterminateSystems/nix-installer-action@main
 
-      - run: nix flake update
+      - run: nix --extra-experimental-features pipe-operators flake update
 
       - uses: stefanzweifel/git-auto-commit-action@v4
         with:
