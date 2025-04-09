@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ config, pkgs, ... }:
 
 {
   wayland.windowManager.hyprland.enable = true;
@@ -8,8 +8,8 @@
       "$mod, F, exec, firefox"
       "$mod, return, exec, kitty --title kitty"
       "$mod, space, exec, anyrun"
-      "$mod, B, exec, ${pkgs.grimblast}/bin/grimblast save screen $XDG_PICTURES_DIR/screenshots/$(date +'%Y-%m-%dT%H:%M:%S%z').png"
-      "$mod, N, exec, ${pkgs.grimblast}/bin/grimblast save area $XDG_PICTURES_DIR/screenshots/$(date +'%Y-%m-%dT%H:%M:%S%z').png"
+      "$mod, B, exec, ${pkgs.grimblast}/bin/grimblast save screen ${config.xdg.userDirs.pictures}/screenshots/$(date +'%Y-%m-%dT%H:%M:%S%z').png"
+      "$mod, N, exec, ${pkgs.grimblast}/bin/grimblast save area ${config.xdg.userDirs.pictures}/screenshots/$(date +'%Y-%m-%dT%H:%M:%S%z').png"
 
       "$mod, C, killactive"
       "$mod, O, fullscreen"
@@ -32,6 +32,10 @@
     ];
     input.kb_layout = "se,us";
     monitor = "DP-1, 1920x1080@165.00Hz, 0x0, 1";
+    general = {
+      border_size = 0;
+      no_border_on_floating = true;
+    };
     decoration.blur = {
       enabled = true;
       passes = 4;
@@ -43,9 +47,12 @@
     };
     decoration.shadow = {
       enabled = true;
-      range = 6;
-      color = "0x0000045";
+      range = 24;
+      render_power = 2;
+      color = "0x1f1a1a1a";
     };
+    decoration.rounding = 12;
+    decoration.rounding_power = 2.0;
     dwindle = {
       pseudotile = true;
     };
@@ -55,9 +62,9 @@
   wayland.windowManager.hyprland.extraConfig = ''
     env = XCURSOR_THEME,Adwaita
     env = XCURSOR_SIZE,24
-    exec-once=hyprctl setcursor Adwaita 24
-    exec-once=kitty --title KITTY_SINGLE_INSTANCE --single-instance
-    exec-once=swaybg --image $XDG_PICTURES_DIR/wallpapers/rosebushes_under_trees.png
+    exec-once = hyprctl setcursor Adwaita 24
+    exec-once = kitty --title KITTY_SINGLE_INSTANCE --single-instance
+    exec-once = swaybg --image ${config.xdg.userDirs.pictures}/wallpapers/rosebushes_under_trees.png
 
     env = NIXOS_OZONE_WL,1
     env = GDK_BACKEND,wayland,x11,*
@@ -91,10 +98,10 @@
     windowrulev2 = move -1024 -1024, initialClass:kitty, initialTitle:KITTY_SINGLE_INSTANCE
 
     # Thunderbird unread mail notifier.
-    # windowrulev2 = noinitialfocus, initialClass:thunderbird, title:
-    # windowrulev2 = float, initialClass:thunderbird, title:
-    # windowrulev2 = pin, initialClass:thunderbird, title:
-    # windowrulev2 = move 100%-w- 0%, initialClass:thunderbird, title:
+    # windowrulev2 = noinitialfocus, initialClass:thunderbird, initialTitle:, title:
+    # windowrulev2 = float, initialClass:thunderbird, initialTitle:, title:
+    # windowrulev2 = pin, initialClass:thunderbird, initialTitle:, title:
+    # windowrulev2 = move 100%-w- 0%, initialClass:thunderbird, initialTitle:, title:
 
     # Firefox PiP
     windowrulev2 = noinitialfocus, class:firefox-nightly title:Picture-in-Picture
@@ -103,7 +110,14 @@
     windowrulev2 = size 25% 25%, class:firefox-nightly title:Picture-in-Picture
     windowrulev2 = move 100%-w-20 20, class:firefox-nightly title:Picture-in-Picture
 
+    # Steam notifications.
+    windowrulev2 = pin, initialTitle:notificationtoasts_([0-9]+)_desktop, class:steam
+
     windowrulev2 = float, class:xdg-desktop-portal-gtk
+
+    windowrulev2 = float, class:org.x.GnomeOnlineAccountsGtk
+
+    windowrulev2 = float, initialTitle:Sign into Modrinth
 
     windowrulev2 = size 50% 50%, initialTitle:raylib
     windowrulev2 = float, initialTitle:raylib
