@@ -30,9 +30,13 @@
       url = "github:poly2it/nvim";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    silentium = {
+      url = "github:poly2it/silentium";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = inputs @ { nixpkgs, home-manager, flatpaks, ... }:
+  outputs = inputs @ { nixpkgs, home-manager, flatpaks, silentium, ... }:
   let
     system = "x86_64-linux";
     pkgs = import nixpkgs {
@@ -43,6 +47,8 @@
         "nvidia-x11"
         "nvidia-settings"
         "nvidia-persistenced"
+        "modrinth-app"
+        "modrinth-app-unwrapped"
       ];
     };
 
