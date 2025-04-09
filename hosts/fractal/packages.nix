@@ -24,6 +24,8 @@
     "flathub:app/com.usebottles.bottles//stable"
     "flathub:app/io.github.nokse22.Exhibit//stable"
     "flathub:app/com.heroicgameslauncher.hgl//stable"
+    "flathub:app/com.modrinth.ModrinthApp//stable"
+    "flathub:app/com.github.tchx84.Flatseal//stable"
   ];
 
   services.syncthing = {
