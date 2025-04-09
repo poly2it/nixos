@@ -17,6 +17,8 @@
     xdg-terminal-exec-mkhl
 
     glxinfo
+    usbutils
+    sutils
 
     morewaita-icon-theme
     nautilus

@@ -1,4 +1,4 @@
-{ ... }:
+{ inputs, ... }:
 
 {
   imports  = [
@@ -13,11 +13,18 @@
     ../home-modules/packages.nix
     ../home-modules/hyprland.nix
     ../home-modules/anyrun.nix
+    ../home-modules/silentium.nix
+    inputs.silentium.homeManagerModules.default
   ];
 
   home.stateVersion = "24.11";
 
   home.shellAliases = {
+    "colmena" = "NIXPKGS_ALLOW_UNFREE=1 colmena --experimental-flake-eval --impure";
+    "nd" = "nix develop";
+    "nf" = "nix fmt";
+    "nc" = "nix flake check";
+    "ex" = "exit";
   };
 }
 

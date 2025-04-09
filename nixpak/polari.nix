@@ -19,6 +19,7 @@ in mkNixpakPackage {
       "org.freedesktop.Telepathy.ConnectionManager.idle" = "own";
       "org.freedesktop.Telepathy.Connection.idle.irc.*" = "own";
       "org.freedesktop.Telepathy.Client.Logger" = "own";
+      "org.freedesktop.Telepathy" = "own";
       "org.freedesktop.secrets" = "talk";
     };
     bubblewrap = {

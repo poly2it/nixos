@@ -1,4 +1,4 @@
-{ pkgs, inputs, ... }: let
+{ config, pkgs, inputs, ... }: let
   inherit (pkgs.callPackage ../nixpak { inherit inputs; }) sandbox;
 in {
   home.packages = [
@@ -7,10 +7,13 @@ in {
     gnome-calendar
     papers
     totem
+    baobab
     inkscape
     apostrophe
     fragments
     swaybg
+    wormhole-rs
+    onlyoffice-bin
   ]) ++ (with sandbox; [
     gnome-music
     plattenalbum
@@ -19,9 +22,21 @@ in {
     seahorse
   ]);
 
-  home.file.".var/app/com.valvesoftware.Steam/data/Steam/compatibilitytools.d/GE-Proton9-16".source = builtins.fetchTarball {
-    url = "https://github.com/GloriousEggroll/proton-ge-custom/releases/download/GE-Proton9-16/GE-Proton9-16.tar.gz";
-    sha256 = "sha256:1x0l0q9wvz7y65315c6mb388mjsvsm7340cgqbdc3vrbn3jm9ylz";
+  home.file.".var/app/com.valvesoftware.Steam/data/Steam/compatibilitytools.d/GE-Proton9-27.link" = let
+    targetPath = "${config.home.homeDirectory}/.var/app/com.valvesoftware.Steam/data/Steam/compatibilitytools.d/GE-Proton9-27";
+    linkPath = "${targetPath}.link";
+  in {
+    source = pkgs.fetchFromGitHub {
+      owner = "GloriousEggroll";
+      repo = "proton-ge-custom";
+      rev = "f12a64ec30b37b01d3691ae56767f8a0e187fc56";
+      hash = "sha256-9twtIXU80plSk0rXEV74Vad2/qpF+T8Z5LoPkL00EN4=";
+    };
+    onChange = ''
+      rm -rf ${targetPath}
+      cp --dereference -r ${linkPath} ${targetPath}
+      chmod u+w -R ${targetPath}
+    '';
   };
 
   programs.git = {
