@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ inputs, pkgs, ... }:
 
 {
   nixpkgs.overlays = [
@@ -10,7 +10,6 @@
     wget
     git
 
-    neovim
     vim
     wl-clipboard
 

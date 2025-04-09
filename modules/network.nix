@@ -31,7 +31,11 @@
 
   networking.resolvconf.useLocalResolver = true;
 
-  networking.networkmanager.enable = true;
+  networking.wireless.iwd.enable = true;
+  networking.networkmanager = {
+    enable = true;
+    wifi.backend = "iwd";
+  };
 
   networking.firewall.allowedTCPPorts = [
     # I2P.
@@ -64,6 +68,13 @@
       inherit address;
       port = 4447;
     };
+  };
+
+  services.tailscale = {
+    enable = true;
+    # Open firewall for the tunnel port.
+    openFirewall = true;
+    port = 41641;
   };
 }
 

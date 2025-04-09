@@ -9,7 +9,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     firefox-gnome-theme = {
-      url = "github:rafaelmardojai/firefox-gnome-theme";
+      url = "github:rafaelmardojai/firefox-gnome-theme/beta";
       flake = false;
     };
     firefox-nightly.url = "github:nix-community/flake-firefox-nightly";
@@ -108,6 +108,12 @@
         modules = [
           ./hosts/lenoving
           (mkUser "bach" { configuration = import ./users/bach.nix; })
+        ];
+      };
+      thinki = mkHost "thinki" {
+        modules = [
+          ./hosts/thinki
+          (mkUser "holst" { configuration = import ./users/holst.nix; })
         ];
       };
     };

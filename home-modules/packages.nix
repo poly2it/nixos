@@ -49,6 +49,7 @@ in {
       init.defaultBranch = "master";
       user.name = "poly2it";
       user.email = "84731064+poly2it@users.noreply.github.com";
+      safe.directory = "${config.home.homeDirectory}/.config/nixos";
     };
   };
 
