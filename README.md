@@ -7,7 +7,7 @@ Build VM:
 Run VM:  
 `./result/bin/run-nixos-vm`
 
-# Attribution and Thank You's
+# Attribution and Thank-Yous
 This project inherits the excellent Firefox preferences distributed by
 [hnhx](https://github.com/hnhx) in their
 [user.js repository](https://github.com/hnhx/user.js).
