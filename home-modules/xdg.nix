@@ -35,6 +35,27 @@ in
     };
   };
 
+  xdg.dataFile."mime/packages/application-extension-ply.xml".text = ''
+    <?xml version="1.0" encoding="utf-8"?>
+    <mime-info xmlns='http://www.freedesktop.org/standards/shared-mime-info'>
+      <mime-type type="application/extension-ply">
+        <comment>PLY file</comment>
+        <glob pattern="*.ply"/>
+      </mime-type>
+    </mime-info>
+  '';
+
+  xdg.mimeApps = {
+    enable = true;
+    defaultApplications = {
+      "application/extension-ply" = "io.github.nokse22.Exhibit.desktop";
+      "application/json" = "org.gnome.TextEditor.desktop";
+      "text/plain" = "org.gnome.TextEditor.desktop";
+      "text/x-chdr" = "org.gnome.TextEditor.desktop";
+      "image/x-adobe-dng" = "org.gnome.Loupe.desktop";
+      "message/rfc822" = "org.gnome.TextEditor.desktop";
+    };
+  };
 
   home.file."pictures/wallpapers".source = ../wallpapers;
 }
