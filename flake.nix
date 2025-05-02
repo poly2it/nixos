@@ -33,6 +33,7 @@
     silentium = {
       url = "github:poly2it/silentium";
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.firefox-gnome-theme.follows = "firefox-gnome-theme";
     };
   };
 
@@ -57,7 +58,7 @@
       users.users.${username} = {
         home = home;
         group = "users";
-        extraGroups = [ "adbusers" "kvm" "systemd-journal" ];
+        extraGroups = [ "adbusers" "audio" "kvm" "systemd-journal" ];
         isNormalUser = true;
         initialPassword = "nixos";
       };
