@@ -2,7 +2,8 @@
   inherit (pkgs.callPackage ../nixpak { inherit inputs; }) sandbox;
 in {
   home.packages = [
-    inputs.nvim.packages.x86_64-linux.default
+    inputs.nvim.packages.${pkgs.system}.default
+    inputs.zed-editor.packages.${pkgs.system}.zed-editor
   ] ++ (with pkgs; [
     gnome-calendar
     papers
