@@ -1,6 +1,5 @@
-{ mkNixpakPackage, nixpakModules, pkgs }: let
-  telepathy-logger = pkgs.callPackage ./support/telepathy-logger.nix {};
-in mkNixpakPackage {
+{ mkNixpakPackage, nixpakModules, pkgs }:
+mkNixpakPackage {
   config = { sloth, ... }: {
     app.package = pkgs.polari;
     imports = [
@@ -33,10 +32,6 @@ in mkNixpakPackage {
         ]
         [
           "${pkgs.telepathy-idle}/libexec/telepathy-idle"
-          "/app/libexec/telepathy-idle"
-        ]
-        [
-          "${telepathy-logger}/libexec/telepathy-idle"
           "/app/libexec/telepathy-idle"
         ]
       ];
