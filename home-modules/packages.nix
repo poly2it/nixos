@@ -1,9 +1,36 @@
 { config, pkgs, inputs, ... }: let
   inherit (pkgs.callPackage ../nixpak { inherit inputs; }) sandbox;
+  zed-editor = pkgs.symlinkJoin {
+    name = "zed-editor";
+    paths = with pkgs; [
+      inputs.zed-editor.packages.${pkgs.system}.zed-editor
+
+      # LSP support
+      nixd
+
+      # Rust
+      (pkgs.rust-bin.nightly.latest.default.override {
+        targets = [ "x86_64-unknown-linux-gnu" "wasm32-unknown-unknown" ];
+        extensions = [ "rustc-codegen-cranelift-preview" ];
+      })
+      cargo
+      pkg-config
+      openssl
+      mold
+      clang
+      llvmPackages.lld
+      wasm-bindgen-cli
+
+      # Python
+      (pkgs.python3.withPackages (p: with p; [
+        httpx
+      ]))
+    ];
+  };
 in {
   home.packages = [
     inputs.nvim.packages.${pkgs.system}.default
-    inputs.zed-editor.packages.${pkgs.system}.zed-editor
+    zed-editor
   ] ++ (with pkgs; [
     gnome-calendar
     papers

@@ -36,13 +36,20 @@
       inputs.firefox-gnome-theme.follows = "firefox-gnome-theme";
     };
     zed-editor.url = "github:poly2it/zed-editor-flake/zed-beta";
+    rust-overlay = {
+      url = "github:oxalica/rust-overlay";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = inputs @ { nixpkgs, home-manager, flatpaks, ... }:
+  outputs = inputs @ { nixpkgs, home-manager, flatpaks, rust-overlay, ... }:
   let
     system = "x86_64-linux";
     pkgs = import nixpkgs {
       inherit system;
+      overlays = [
+        (import rust-overlay)
+      ];
       config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
         "cuda-merged"
         "cudatoolkit"
