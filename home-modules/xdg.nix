@@ -50,6 +50,7 @@ in
     defaultApplications = {
       "application/extension-ply" = "io.github.nokse22.Exhibit.desktop";
       "application/json" = "org.gnome.TextEditor.desktop";
+      "application/pdf" = "org.gnome.Papers.desktop";
       "text/plain" = "org.gnome.TextEditor.desktop";
       "text/x-chdr" = "org.gnome.TextEditor.desktop";
       "image/x-adobe-dng" = "org.gnome.Loupe.desktop";
