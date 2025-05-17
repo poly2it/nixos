@@ -13,74 +13,80 @@ let
     '';
   }) else inputs.firefox-nightly.packages.${pkgs.stdenv.hostPlatform.system}.firefox-nightly-bin;
 
-  bookmarks = [
-    {
-      name = "wikipedia";
-      tags = [ "wiki" ];
-      keyword = "wiki";
-      url = "https://en.wikipedia.org/wiki/Special:Search?search=%s&go=Go";
-    }
-    {
-      name = "kernel.org";
-      url = "https://www.kernel.org";
-    }
-    {
-      name = "uops.info";
-      url = "https://uops.info/table.html";
-    }
-    {
-      name = "MVP Demo";
-      url = "https://jdeokkim.github.io/projects/mvp-demo/";
-    }
-    {
-      name = "Nix Sites";
-      toolbar = true;
-      bookmarks = [
-        {
-          name = "NixOS Home";
-          tags = [ "nix" ];
-          url = "https://nixos.org/";
-        }
-        {
-          name = "NixOS Wiki";
-          tags = [ "wiki" "nix" ];
-          url = "https://wiki.nixos.org/";
-        }
-        {
-          name = "MyNixOS";
-          tags = [ "nix" ];
-          url = "https://mynixos.com/";
-        }
-      ];
-    }
-  ];
+  bookmarks = {
+    force = true;
+    settings = [
+      {
+        name = "wikipedia";
+        tags = [ "wiki" ];
+        keyword = "wiki";
+        url = "https://en.wikipedia.org/wiki/Special:Search?search=%s&go=Go";
+      }
+      {
+        name = "kernel.org";
+        url = "https://www.kernel.org";
+      }
+      {
+        name = "uops.info";
+        url = "https://uops.info/table.html";
+      }
+      {
+        name = "MVP Demo";
+        url = "https://jdeokkim.github.io/projects/mvp-demo/";
+      }
+      {
+        name = "Nix Sites";
+        toolbar = true;
+        bookmarks = [
+          {
+            name = "NixOS Home";
+            tags = [ "nix" ];
+            url = "https://nixos.org/";
+          }
+          {
+            name = "NixOS Wiki";
+            tags = [ "wiki" "nix" ];
+            url = "https://wiki.nixos.org/";
+          }
+          {
+            name = "MyNixOS";
+            tags = [ "nix" ];
+            url = "https://mynixos.com/";
+          }
+        ];
+      }
+    ];
+  };
 
-  bookmarksI2p = [
-    {
-      name = "I2P";
-      toolbar = true;
-      bookmarks = [
-        {
-          name = "List of I2P Sites";
-          url = "http://mqtlargpv4247iylywxw6ibi6qpz6my5duqm33c4lcdhjg5yfh7q.b32.i2p/rollcall/i2p.html";
-        }
-        {
-          name = "eepstatus";
-          url = "http://identiguy.i2p/";
-        }
-      ];
-    }
-  ];
+  bookmarksI2p = {
+    force = true;
+    settings = [
+      {
+        name = "I2P";
+        toolbar = true;
+        bookmarks = [
+          {
+            name = "List of I2P Sites";
+            url = "http://mqtlargpv4247iylywxw6ibi6qpz6my5duqm33c4lcdhjg5yfh7q.b32.i2p/rollcall/i2p.html";
+          }
+          {
+            name = "eepstatus";
+            url = "http://identiguy.i2p/";
+          }
+        ];
+      }
+    ];
+  };
 
   search = {
     force = true;
-    default = "DuckDuckGo";
-    order = [ "DuckDuckGo" ];
+    default = "ddg";
+    order = [ "ddg" ];
     engines = {
-      "Google".metaData.hidden = true;
-      "Bing".metaData.hidden = true;
-      "eBay".metaData.hidden = true;
-      "Wikipedia (en)".metaData.alias = "@w";
+      "google".metaData.hidden = true;
+      "bing".metaData.hidden = true;
+      "ebay".metaData.hidden = true;
+      "wikipedia".metaData.alias = "@w";
       "Wiktionary" = {
         urls = [{
           template = "https://en.wiktionary.org/w/index.php";
@@ -171,11 +177,11 @@ let
     default = "";
     order = [ "" ];
     engines = {
-      "Google".metaData.hidden = true;
-      "Bing".metaData.hidden = true;
-      "eBay".metaData.hidden = true;
-      "DuckDuckGo".metaData.hidden = true;
-      "Wikipedia (en)".metaData.hidden = true;
+      "google".metaData.hidden = true;
+      "bing".metaData.hidden = true;
+      "ebay".metaData.hidden = true;
+      "ddg".metaData.hidden = true;
+      "wikipedia".metaData.hidden = true;
     };
   };
 
