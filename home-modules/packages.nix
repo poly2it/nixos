@@ -7,6 +7,7 @@
 
       # LSP support
       nixd
+      basedpyright
 
       # Rust
       (pkgs.rust-bin.nightly.latest.default.override {
@@ -92,4 +93,3 @@ in {
     enable = true;
   };
 }
-
