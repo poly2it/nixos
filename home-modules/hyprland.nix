@@ -14,7 +14,7 @@
       "$mod, C, killactive"
       "$mod, O, fullscreen"
 
-      "$mod, V, layoutmsg, preselect d"
+      "$mod, V, exec, hyprctl dispatch togglefloating"
 
       "$mod, h, movefocus, l"
       "$mod, j, movefocus, d"
