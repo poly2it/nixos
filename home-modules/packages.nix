@@ -41,7 +41,13 @@ in {
     fragments
     swaybg
     wormhole-rs
+    bat
+    htop
+    silver-searcher
     onlyoffice-bin
+    zrythm
+    qjackctl
+    nurl
   ]) ++ (with sandbox; [
     gnome-music
     plattenalbum
