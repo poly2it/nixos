@@ -8,8 +8,16 @@
   };
 
   home.shellAliases = {
+    nd = "nix develop";
+    nf = "nix fmt";
+    nc = "nix flake check";
+    ex = "exit";
     la = "ls -A";
     ll = "la -l -h";
+    cat = "bat";
+    icat = "kitty +kitten icat --";
+    top = "htop";
+    colmena = "NIXPKGS_ALLOW_UNFREE=1 colmena --experimental-flake-eval --impure";
     v = "nvim";
   };
 
