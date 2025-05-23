@@ -24,9 +24,9 @@
   programs.bash = {
     enable = true;
     initExtra = ''
+      nr() { local PKG="$1"; shift; nix run "nixpkgs#$PKG" -- $@; }
       unset __HM_SESS_VARS_SOURCED
       . "/etc/profiles/per-user/$(whoami)/etc/profile.d/hm-session-vars.sh"
     '';
   };
 }
-
