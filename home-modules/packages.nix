@@ -8,6 +8,7 @@
       # LSP support
       nixd
       basedpyright
+      gopls
 
       # Rust
       (pkgs.rust-bin.nightly.latest.default.override {
