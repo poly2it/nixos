@@ -9,6 +9,7 @@
       nixd
       basedpyright
       gopls
+      go
 
       # Rust
       (pkgs.rust-bin.nightly.latest.default.override {
