@@ -28,6 +28,7 @@
   ];
 
   programs.git.config.init.defaultBranch = "master";
+  programs.direnv.enable = true;
 
   services.gvfs.enable = true;
   services.flatpak.enable = true;
@@ -40,4 +41,3 @@
 
   programs.hyprland.enable = true;
 }
-
