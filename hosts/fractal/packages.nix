@@ -7,7 +7,15 @@
 
     android-udev-rules
 
-    signal-desktop
+    (symlinkJoin {
+      name = "signal-desktop";
+      paths = [ signal-desktop ];
+      nativeBuildInputs = [ makeWrapper ];
+      postBuild = ''
+        wrapProgram "$out/bin/signal-desktop" \
+          --add-flags '--password-store="gnome-libsecret"'
+      '';
+    })
 
     thunderbird-latest
   ];
