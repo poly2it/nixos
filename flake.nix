@@ -35,7 +35,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.firefox-gnome-theme.follows = "firefox-gnome-theme";
     };
-    zed-editor.url = "github:poly2it/zed-editor-flake/zed-beta";
+    zed-editor.url = "github:HPsaucii/zed-editor-flake";
     rust-overlay = {
       url = "github:oxalica/rust-overlay";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -66,7 +66,7 @@
       users.users.${username} = {
         home = home;
         group = "users";
-        extraGroups = [ "adbusers" "audio" "kvm" "systemd-journal" ];
+        extraGroups = [ "adbusers" "audio" "kvm" "podman" "systemd-journal" ];
         isNormalUser = true;
         initialPassword = "nixos";
       };

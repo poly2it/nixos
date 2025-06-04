@@ -618,11 +618,11 @@
     },
     "nixpkgs_5": {
       "locked": {
-        "lastModified": 1746987699,
-        "narHash": "sha256-s0QoQDTZr5iXkbqBzylVrjKO5NBXax/FkoE01cTcQdM=",
+        "lastModified": 1748677907,
+        "narHash": "sha256-rs1/xGQ3sm8FX8Pn2kqM1Gfne01yAToddxobCTKK3DU=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "6eb89aae973dc9d336bb7506828ef9d08a39d574",
+        "rev": "308837b8e6393f121d0889a7e417d13072c33461",
         "type": "github"
       },
       "original": {
@@ -653,11 +653,11 @@
     },
     "patched-nixpkgs": {
       "locked": {
-        "lastModified": 1746961062,
-        "narHash": "sha256-7krN5Ii+jFQTIQL/KDQgjU7qRpbs9Ndgd0POccM+nb0=",
+        "lastModified": 1748133736,
+        "narHash": "sha256-8DCZF+SHXa7P9O9op2ET7qJtPomzQ49jy2vjzrHocg4=",
         "owner": "TomaSajt",
         "repo": "nixpkgs",
-        "rev": "40f15db812bdec49cd4e64ba46fc355b7e2af358",
+        "rev": "76121e3e5db9bfcc4b604b4093abea7b1aa3109e",
         "type": "github"
       },
       "original": {
@@ -801,16 +801,15 @@
         "patched-nixpkgs": "patched-nixpkgs"
       },
       "locked": {
-        "lastModified": 1747005692,
-        "narHash": "sha256-uBsis3aqYggRpnLMNDKrTWZEam6hjrU0htKG9em9S7Y=",
-        "owner": "poly2it",
+        "lastModified": 1748678640,
+        "narHash": "sha256-SusMUTjtScBskcnPf0eZNsaIkN7fRBMUYBGero3dxew=",
+        "owner": "HPsaucii",
         "repo": "zed-editor-flake",
-        "rev": "b8b179f54a66918e52d3d9c9434bc54c8eb58be6",
+        "rev": "c4b6e1817d1d28efa068b70d71d54d0189626ca8",
         "type": "github"
       },
       "original": {
-        "owner": "poly2it",
-        "ref": "zed-beta",
+        "owner": "HPsaucii",
         "repo": "zed-editor-flake",
         "type": "github"
       }

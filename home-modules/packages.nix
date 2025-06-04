@@ -3,13 +3,14 @@
   zed-editor = pkgs.symlinkJoin {
     name = "zed-editor";
     paths = with pkgs; [
-      inputs.zed-editor.packages.${pkgs.system}.zed-editor
+      inputs.zed-editor.packages.${pkgs.system}.zed-editor-preview
 
       # LSP support
       nixd
       basedpyright
       gopls
       go
+      vscode-langservers-extracted
 
       # Rust
       (pkgs.rust-bin.nightly.latest.default.override {
@@ -81,12 +82,14 @@ in {
     aliases = {
       "uncommit" = "reset --soft HEAD^";
       "unadd" = "restore --staged";
+      "new-branch-with-local-changes" = "checkout -b";
     };
     extraConfig = {
       init.defaultBranch = "master";
       user.name = "poly2it";
       user.email = "84731064+poly2it@users.noreply.github.com";
       safe.directory = "${config.home.homeDirectory}/.config/nixos";
+      push.autoSetupRemote = true;
     };
   };
 
