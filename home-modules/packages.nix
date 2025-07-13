@@ -1,11 +1,7 @@
-{ config, pkgs, inputs, ... }: let
+{ config, pkgs, lib, inputs, ... }: let
   inherit (pkgs.callPackage ../nixpak { inherit inputs; }) sandbox;
-  zed-editor = pkgs.symlinkJoin {
-    name = "zed-editor";
-    paths = with pkgs; [
-      inputs.zed-editor.packages.${pkgs.system}.zed-editor-preview
-
-      # LSP support
+  zed-editor = (pkgs.symlinkJoin (let
+    lspDeps = with pkgs; [
       nixd
       basedpyright
       gopls
@@ -13,11 +9,10 @@
       vscode-langservers-extracted
 
       # Rust
-      (pkgs.rust-bin.nightly.latest.default.override {
+      (rust-bin.selectLatestNightlyWith (t: t.default.override {
         targets = [ "x86_64-unknown-linux-gnu" "wasm32-unknown-unknown" ];
-        extensions = [ "rustc-codegen-cranelift-preview" ];
-      })
-      cargo
+        extensions = [ "rustc-codegen-cranelift-preview" "rust-analyzer" ];
+      }))
       pkg-config
       openssl
       mold
@@ -30,7 +25,16 @@
         httpx
       ]))
     ];
-  };
+  in {
+    name = "zed-editor";
+    paths = [
+      (pkgs.writeShellScriptBin "zeditor" ''
+        export PATH=$SHELL:${lib.makeBinPath lspDeps}:$PATH
+        ${inputs.zed-editor.packages.${pkgs.system}.zed-editor-preview}/bin/zeditor $@
+      '')
+      inputs.zed-editor.packages.${pkgs.system}.zed-editor-preview
+    ];
+  }));
 in {
   home.packages = [
     inputs.nvim.packages.${pkgs.system}.default
@@ -59,6 +63,10 @@ in {
     polari
     seahorse
   ]);
+
+  services.swayosd = {
+    enable = true;
+  };
 
   home.file.".var/app/com.valvesoftware.Steam/data/Steam/compatibilitytools.d/GE-Proton9-27.link" = let
     targetPath = "${config.home.homeDirectory}/.var/app/com.valvesoftware.Steam/data/Steam/compatibilitytools.d/GE-Proton9-27";
