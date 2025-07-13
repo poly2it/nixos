@@ -4,6 +4,38 @@
   wayland.windowManager.hyprland.enable = true;
   wayland.windowManager.hyprland.settings = {
     "$mod" = "SUPER";
+
+    # `l`: locked, will also work when an input inhibitor (e.g. a lockscreen) is active.
+    # `r`: release, will trigger on release of a key.
+    # `c`: click, will trigger on release of a key or button as long as the mouse cursor stays inside binds:drag_threshold.
+    # `g`: drag, will trigger on release of a key or button as long as the mouse cursor moves outside binds:drag_threshold.
+    # `o`: longPress, will trigger on long press of a key.
+    # `e`: repeat, will repeat when held.
+    # `n`: non-consuming, key/mouse events will be passed to the active window in addition to triggering the dispatcher.
+    # `m`: mouse, see below.
+    # `t`: transparent, cannot be shadowed by other binds.
+    # `i`: ignore mods, will ignore modifiers.
+    # `s`: separate, will arbitrarily combine keys between each mod/key
+    # `d`: has description, will allow you to write a description for your bind.
+    # `p`: bypasses the app's requests to inhibit keybinds.
+    bindl = [
+      ",XF86MonBrightnessUp, exec, swayosd-client --brightness raise 5%+"
+      ",XF86MonBrightnessDown, exec, swayosd-client --brightness lower 5%-"
+      "$mod, XF86MonBrightnessUp, exec, brightnessctl set 100%"
+      "$mod, XF86MonBrightnessDown, exec, brightnessctl set 0%"
+      "CAPS,Caps_Lock,exec,swayosd-client --caps-lock"
+    ];
+    bindle = [
+      ",XF86AudioRaiseVolume, exec, swayosd-client --output-volume +5 --max-volume=100"
+      ",XF86AudioLowerVolume, exec, swayosd-client --output-volume -5"
+
+      "$mod, f11, exec, swayosd-client --output-volume +5 --max-volume=100"
+      "$mod, f12, exec, swayosd-client --output-volume -5"
+    ];
+    bindr = [
+      ",Scroll_Lock,exec,swayosd-client --scroll-lock"
+      ",Num_Lock,exec,swayosd-client --num-lock"
+    ];
     bind = [
       "$mod, F, exec, firefox"
       "$mod, return, exec, kitty --title kitty"
@@ -20,6 +52,8 @@
       "$mod, j, movefocus, d"
       "$mod, k, movefocus, u"
       "$mod, l, movefocus, r"
+
+      ",XF86AudioMute, exec, swayosd-client --output-volume mute-toggle"
     ] ++ (
       builtins.concatLists (builtins.genList (i: [
         "$mod, code:1${toString i}, workspace, ${toString (i + 1)}"
@@ -109,6 +143,10 @@
     windowrulev2 = pin, class:firefox-nightly title:Picture-in-Picture
     windowrulev2 = size 25% 25%, class:firefox-nightly title:Picture-in-Picture
     windowrulev2 = move 100%-w-20 20, class:firefox-nightly title:Picture-in-Picture
+
+    windowrulev2 = float,title:development.float
+    windowrulev2 = size 80% 80%, title:development.float
+    windowrulev2 = move 10% 10%, title:development.float
 
     # Steam notifications.
     windowrulev2 = pin, initialTitle:notificationtoasts_([0-9]+)_desktop, class:steam
