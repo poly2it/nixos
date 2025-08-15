@@ -56,6 +56,7 @@ in {
     zrythm
     qjackctl
     nurl
+    ungoogled-chromium
   ]) ++ (with sandbox; [
     gnome-music
     plattenalbum

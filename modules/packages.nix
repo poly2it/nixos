@@ -25,6 +25,11 @@
     metadata-cleaner
     celluloid
     eyedropper
+
+    gnome-boxes
+    dnsmasq
+    phodav
+    swtpm
   ];
 
   programs.git.config.init.defaultBranch = "master";
