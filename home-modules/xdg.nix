@@ -1,4 +1,4 @@
-{ pkgs, config, ... }:
+{ pkgs, lib, config, ... }:
 let
   home = config.home.homeDirectory;
 in
@@ -51,12 +51,19 @@ in
       "application/extension-ply" = "io.github.nokse22.Exhibit.desktop";
       "application/json" = "org.gnome.TextEditor.desktop";
       "application/pdf" = "org.gnome.Papers.desktop";
-      "text/plain" = "org.gnome.TextEditor.desktop";
-      "text/x-chdr" = "org.gnome.TextEditor.desktop";
+      "image/png" = "org.gnome.Loupe.desktop";
       "image/x-adobe-dng" = "org.gnome.Loupe.desktop";
       "message/rfc822" = "org.gnome.TextEditor.desktop";
+      "text/html" = "firefox-nightly.desktop";
+      "text/plain" = "org.gnome.TextEditor.desktop";
+      "text/x-chdr" = "org.gnome.TextEditor.desktop";
+      "x-scheme-handler/about" = "firefox-nightly.desktop";
+      "x-scheme-handler/http" = "firefox-nightly.desktop";
+      "x-scheme-handler/https" = "firefox-nightly.desktop";
+      "x-scheme-handler/unknown" = "firefox-nightly.desktop";
     };
   };
+  xdg.configFile."mimeapps.list".force = true;
 
   home.file."pictures/wallpapers".source = ../wallpapers;
 }
