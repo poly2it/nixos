@@ -3,7 +3,6 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    chaotic.url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
     home-manager = {
       url = "github:nix-community/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -66,7 +65,7 @@
       users.users.${username} = {
         home = home;
         group = "users";
-        extraGroups = [ "adbusers" "audio" "kvm" "podman" "systemd-journal" ];
+        extraGroups = [ "adbusers" "audio" "kvm" "libvirtd" "podman" "systemd-journal" ];
         isNormalUser = true;
         initialPassword = "nixos";
       };
@@ -89,9 +88,8 @@
         ./modules/printing.nix
         ./modules/security.nix
         ./modules/update.nix
-        inputs.chaotic.nixosModules.default
         home-manager.nixosModules.home-manager
-        flatpaks.nixosModules.declarative-flatpak
+        flatpaks.nixosModule
         {
           networking.hostName = hostname;
           users.users.gdm = { extraGroups = [ "video" ]; };
