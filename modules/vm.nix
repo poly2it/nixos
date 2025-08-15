@@ -1,4 +1,4 @@
-{ ... }:
+{ pkgs, ... }:
 
 let virtualisation = {
   memorySize = 8192;
@@ -16,6 +16,21 @@ in
   virtualisation.vmVariantWithBootLoader = {
     inherit virtualisation;
   };
+  virtualisation.libvirtd = {
+    enable = true;
+
+    qemu = {
+      swtpm.enable = true;
+      ovmf.enable = true;
+      ovmf.packages = [(pkgs.OVMF.override {
+        secureBoot = true;
+        tpmSupport = true;
+      }).fd];
+    };
+  };
+
+  virtualisation.spiceUSBRedirection.enable = true;
+
   virtualisation.podman = {
     enable = true;
     # Create the default bridge network for podman.
