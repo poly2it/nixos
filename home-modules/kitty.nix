@@ -1,14 +1,38 @@
-{ ... }:
+{ ... }: let
+	bg = "#ffffff";
+	fg = "#191919";
 
-{
+	black = "#000000";
+	red = "#e5492b";
+	green = "#50d148";
+	yellow = "#c6c440";
+	blue = "#3b75ff";
+	magenta = "#ed66e8";
+	cyan = "#4ed2de";
+	white = "#dcdcdc";
+
+	bright_black = "#9f9f9f";
+	bright_red = "#ff6640";
+	bright_green = "#61ef57";
+	bright_yellow = "#f2f156";
+	bright_blue = "#0082ff";
+	bright_magenta = "#ff7eff";
+	bright_cyan = "#61f7f8";
+	bright_white = "#f2f2f2";
+
+	cursor = "#4d4d4d";
+	selection = "#c1ddff";
+in {
   programs.kitty = {
     enable = true;
     font = {
-      name = "Iosevka";
+      name = "IBM Plex Mono";
       size = 11;
     };
     extraConfig = ''
-      text_composition_strategy platform
+      text_composition_strategy legacy
+
+      placement_strategy top-left
 
       modify_font underline_position 22
 
@@ -91,45 +115,30 @@
       # Box Drawing
       symbol_map U+2500-U+259F Symbols Nerd Font
 
-      foreground #ffffff
-      background #1e1e1e
+      cursor ${cursor}
+      foreground ${fg}
+      background ${bg}
       dim_opacity 0.5
 
-      selection_foreground #000000
-      selection_background #ffffff
+      selection_foreground none
+      selection_background ${selection}
 
-      # Black
-      color0  #1d1d1d
-      # Bright Black
-      color8  #9a9996
-      # Red
-      color1  #ed333b
-      # Bright Red
-      color9  #f66151
-      # Green
-      color2  #57e389
-      # Bright Green
-      color10 #8ff04a
-      # Yellow
-      color3  #ff7800
-      # Bright Yellow
-      color11 #ffa348
-      # Blue
-      color4  #62a0ea
-      # Bright Blue
-      color12 #99c1f1
-      # Magenta
-      color5  #9141ac
-      # Bright Magenta
-      color13 #dc8add
-      # Cyan
-      color6  #5bc8af
-      # Bright Cyan
-      color14 #93ddc2
-      # White
-      color7  #deddda
-      # Bright White
-      color15 #f6f5f4
+      color0  ${black}
+      color8  ${bright_black}
+      color1  ${red}
+      color9  ${bright_red}
+      color2  ${green}
+      color10 ${bright_green}
+      color3  ${yellow}
+      color11 ${bright_yellow}
+      color4  ${blue}
+      color12 ${bright_blue}
+      color5  ${magenta}
+      color13 ${bright_magenta}
+      color6  ${cyan}
+      color14 ${bright_cyan}
+      color7  ${white}
+      color15 ${bright_white}
     '';
   };
 }

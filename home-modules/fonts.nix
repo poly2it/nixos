@@ -5,6 +5,7 @@
     nerd-fonts.symbols-only
     noto-fonts-emoji
     iosevka
+    ibm-plex
     cantarell-fonts
     noto-fonts
     noto-fonts-emoji
