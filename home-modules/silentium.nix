@@ -2,7 +2,7 @@
 
 {
   programs.silentium = {
-    enable = true;
+    enable = false;
     profiles = {
       "default" = {
         name = "default";

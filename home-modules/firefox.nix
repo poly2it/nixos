@@ -411,6 +411,9 @@ let
     # Enable rounded bottom window corners.
     "widget.gtk.rounded-bottom-corners.enabled" = true;
 
+    # Disable content area rounding with vertical tabs.
+    "sidebar.revamp.round-content-area" = false;
+
     # Release notes and vendor URLs.
     "app.releaseNotesURL" = localhost;
     "app.vendorURL" = localhost;
@@ -907,9 +910,6 @@ let
 
     # Disable AV1 codec.
     "media.av1.enabled " = false;
-
-    # Disable WebGL
-    "webgl.disabled" = true;
   };
   preferencesI2p = {
     "network.proxy.http" = localhost;
