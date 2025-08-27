@@ -34,6 +34,17 @@
 
         do-not-query-localhost = false;
         edns-tcp-keepalive = true;
+
+        # Define local data for your domain
+        local-data = [
+          "'cenitly.local. A 127.0.0.1'"
+          "'auth.cenitly.local. A 127.0.0.1'"
+        ];
+        local-data-ptr = ''"127.0.0.1 cenitly.local"'';
+
+        # Make sure .local queries are handled locally
+        private-domain = ''"local"'';
+        domain-insecure = ''"local"'';
       };
     };
   };
@@ -65,6 +76,26 @@
           chain input {
             type filter hook input priority -100; policy accept;
             ip saddr 100.64.0.0/10 ct mark set 0x00000f41 meta mark set 0x6d6f6c65;
+          }
+        '';
+      };
+      cenitly_local = {
+        name = "cenitly_local";
+        family = "ip";
+        content = ''
+          chain output {
+            type nat hook output priority -100; policy accept;
+            ip daddr 127.0.0.1 tcp dport 80 redirect to :7080
+          }
+        '';
+      };
+      cenitly_local_tls = {
+        name = "cenitly_local_tls";
+        family = "ip";
+        content = ''
+          chain output {
+            type nat hook output priority -100; policy accept;
+            ip daddr 127.0.0.1 tcp dport 443 redirect to :7443
           }
         '';
       };
