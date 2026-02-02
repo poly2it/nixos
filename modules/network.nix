@@ -35,11 +35,15 @@
         do-not-query-localhost = false;
         edns-tcp-keepalive = true;
 
+        tls-cert-bundle = "/run/dynamic-ca/ca-certificates.crt";
+
         # Define local data for your domain
         local-data = [
           "'cenitly.local. A 127.0.0.1'"
           "'auth.cenitly.local. A 127.0.0.1'"
+          "'skeptiva.local. A 127.0.0.1'"
         ];
+        local-zone = [ "\"skeptiva.local.\" redirect" ];
         local-data-ptr = ''"127.0.0.1 cenitly.local"'';
 
         # Make sure .local queries are handled locally
@@ -47,6 +51,10 @@
         domain-insecure = ''"local"'';
       };
     };
+  };
+
+  services.dynamic-ca = {
+    enable = true;
   };
 
   networking.nameservers = [ "127.0.0.1" ];

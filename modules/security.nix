@@ -3,6 +3,13 @@
 {
   services.gnome.gnome-keyring.enable = true;
 
+  services.pcscd.enable = true;
+  programs.gnupg.agent = {
+    enable = true;
+    pinentryPackage = pkgs.pinentry-curses;
+    enableSSHSupport = true;
+  };
+
   # Automatically unlock keyring on LUKS passphrase.
   security.pam.services.gdm.enableGnomeKeyring = true;
   boot.initrd.systemd.enable = lib.mkForce true;

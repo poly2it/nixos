@@ -3,10 +3,13 @@
 let virtualisation = {
   memorySize = 8192;
   cores = 8;
-  qemu.options = [
-    "-accel kvm"
-    "-audio pa"
-  ];
+  qemu = {
+    swtpm.enable = true;
+    options = [
+      "-accel kvm"
+      "-audio pa"
+    ];
+  };
 };
 in
 {
@@ -18,15 +21,6 @@ in
   };
   virtualisation.libvirtd = {
     enable = true;
-
-    qemu = {
-      swtpm.enable = true;
-      ovmf.enable = true;
-      ovmf.packages = [(pkgs.OVMF.override {
-        secureBoot = true;
-        tpmSupport = true;
-      }).fd];
-    };
   };
 
   virtualisation.spiceUSBRedirection.enable = true;

@@ -1,3 +1,7 @@
+.direnv
+.claude/settings.local.json
+.mcp.json
+
 ### Nix ###
 # Virtualised container build artifacts
 *.qcow2

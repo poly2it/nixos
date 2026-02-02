@@ -42,6 +42,7 @@
       "$mod, space, exec, anyrun"
       "$mod, B, exec, ${pkgs.grimblast}/bin/grimblast save screen ${config.xdg.userDirs.pictures}/screenshots/$(date +'%Y-%m-%dT%H:%M:%S%z').png"
       "$mod, N, exec, ${pkgs.grimblast}/bin/grimblast save area ${config.xdg.userDirs.pictures}/screenshots/$(date +'%Y-%m-%dT%H:%M:%S%z').png"
+      "$mod, tab, exec, swaync-client -t; mode default"
 
       "$mod, C, killactive"
       "$mod, O, fullscreen"
@@ -67,11 +68,15 @@
     input.kb_layout = "se,us";
     monitor = "DP-1, 1920x1080@165.00Hz, 0x0, 1";
     general = {
-      border_size = 0;
+      border_size = 1;
       no_border_on_floating = true;
+      gaps_in = 0;
+      gaps_out = -1;
+      "col.active_border" = "rgb(cccccc)";
+      "col.inactive_border" = "rgb(cccccc)";
     };
     decoration.blur = {
-      enabled = true;
+      enabled = false;
       passes = 4;
       size = 12;
       noise = 0.015;
@@ -80,15 +85,18 @@
       ignore_opacity = true;
     };
     decoration.shadow = {
-      enabled = true;
+      enabled = false;
       range = 24;
       render_power = 2;
       color = "0x1f1a1a1a";
     };
-    decoration.rounding = 12;
+    decoration.rounding = 0;
     decoration.rounding_power = 2.0;
     dwindle = {
       pseudotile = true;
+    };
+    animations = {
+      enabled = false;
     };
     general.resize_on_border = true;
     xwayland.force_zero_scaling = true;
@@ -117,13 +125,16 @@
     env = __GLX_VENDOR_LIBRARY_NAME,nvidia
     env = LIBVA_DRIVER_NAME,nvidia
 
-    layerrule = blur, anyrun
-    layerrule = ignorealpha 0.3, anyrun
+    # layerrule = blur, anyrun
+    # layerrule = ignorealpha 0.3, anyrun
     layerrule = noanim, anyrun
 
     bezier = almostLinear, 0.48, 0.79, 0.56, 1
-    animation = windows, 0, 100, almostLinear, slidefade 10%
-    animation = windowsIn, 1, 1, almostLinear, slide down 100px
+    # animation = windows, 0, 100, almostLinear, slidefade 10%
+    # animation = windowsIn, 1, 1, almostLinear, slide down 100px
+
+    # windowrulev2 = noborder, focus:0
+    # windowrulev2 = noshadow, focus:0
 
     windowrulev2 = noinitialfocus, initialClass:kitty, initialTitle:KITTY_SINGLE_INSTANCE
     windowrulev2 = float, initialClass:kitty, initialTitle:KITTY_SINGLE_INSTANCE
@@ -163,8 +174,10 @@
     windowrulev2 = float, class:org.gnome.FileRoller
 
     # Ghidra
-    windowrulev2 = float, class:ghidra-Ghidra title:"Tip of the Day"
-    windowrulev2 = tile, class:ghidra-Ghidra title:"Ghidra: .*"
+    # windowrulev2 = float, class:ghidra-Ghidra title:"Tip of the Day"
+    # windowrulev2 = tile, class:ghidra-Ghidra title:"Ghidra: .*"
+    windowrulev2 = nofocus,class:^ghidra-.+$,title:^win.+$,floating:1,fullscreen:0
   '';
-}
 
+  programs.hyprlock.enable = true;
+}

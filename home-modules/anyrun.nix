@@ -1,5 +1,29 @@
-{ pkgs, inputs, ... }:
+{ pkgs, lib, inputs, ... }:
+ let
+	bg = "#ffffff";
+	fg = "#191919";
 
+	black = "#000000";
+	red = "#e5492b";
+	green = "#50d148";
+	yellow = "#c6c440";
+	blue = "#3b75ff";
+	magenta = "#ed66e8";
+	cyan = "#4ed2de";
+	white = "#dcdcdc";
+
+	bright_black = "#9f9f9f";
+	bright_red = "#ff6640";
+	bright_green = "#61ef57";
+	bright_yellow = "#f2f156";
+	bright_blue = "#0082ff";
+	bright_magenta = "#ff7eff";
+	bright_cyan = "#61f7f8";
+	bright_white = "#f2f2f2";
+
+	cursor = "#4d4d4d";
+	selection = "#c1ddff";
+in
 {
   programs.anyrun = {
     enable = true;
@@ -7,11 +31,12 @@
       x = { fraction = 0.5; };
       y = { fraction = 0.2; };
       width = { fraction = 0.3; };
+      height = { absolute = 0; };
       hideIcons = false;
       ignoreExclusiveZones = false;
       layer = "overlay";
       hidePluginInfo = false;
-      closeOnClick = false;
+      closeOnClick = true;
       showResultsImmediately = false;
       maxEntries = 16;
 
@@ -23,87 +48,7 @@
       ];
     };
 
-    extraCss = ''
-      #window {
-        background: transparent;
-        font-family: "Arimo";
-      }
-
-      #entry {
-        background: transparent;
-        border: none;
-
-        color: black;
-        caret-color: black;
-        font-size: 24px;
-
-        padding: 0;
-        margin: 12px;
-        margin-bottom: 12px;
-        transition: 0;
-      }
-
-      #entry:focus {
-        outline: none;
-        border: none;
-        box-shadow: none;
-      }
-
-      box#main {
-        background-color: rgba(243, 241, 240, 0.31);
-        border: 1px solid rgba(117, 121, 120, 0.8);
-        border-radius: 20px;
-        box-shadow: 0px 15px 48px 6px rgba(0,0,0,0.3);
-      }
-
-      list {
-        background: transparent;
-        padding: 0;
-        margin: 0;
-      }
-
-      list > #plugin:hover {
-        background: inherit;
-      }
-
-      list > #plugin {
-        border-top: 1px solid rgba(85, 89, 105, 0.3);
-        padding: 12px;
-        background: inherit;
-      }
-
-      list > #plugin:last-child {
-        border-radius: 0 0 20px 20px;
-      }
-
-      #plugin > label {
-        font-weight: bold;
-      }
-
-      #plugin separator {
-        background-color: rgba(85, 89, 105, 0.3);
-      }
-
-      #match-title,
-      #match-desc {
-        font-weight: normal;
-      }
-
-      #match {
-        background: transparent;
-        transition: 0;
-      }
-
-      #match:hover {
-        background: inherit;
-      }
-
-      #match:selected {
-        border-radius: 8px;
-        color: black;
-        background-color: rgba(85, 89, 105, 0.3);
-      }
-    '';
+    extraCss = lib.readFile ./anyrun.css;
 
     extraConfigFiles = {
       "applications.ron".text = ''

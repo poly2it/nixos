@@ -7,6 +7,7 @@
       gopls
       go
       vscode-langservers-extracted
+      nodejs_24
 
       # Rust
       (rust-bin.selectLatestNightlyWith (t: t.default.override {
@@ -20,6 +21,8 @@
       llvmPackages.lld
       wasm-bindgen-cli
 
+      ocamlPackages.ocaml-lsp
+
       # Python
       (pkgs.python3.withPackages (p: with p; [
         httpx
@@ -30,18 +33,37 @@
     paths = [
       (pkgs.writeShellScriptBin "zeditor" ''
         export PATH=$SHELL:${lib.makeBinPath lspDeps}:$PATH
-        ${inputs.zed-editor.packages.${pkgs.system}.zed-editor-preview}/bin/zeditor $@
+        ${pkgs.zed-editor}/bin/zeditor $@
       '')
-      inputs.zed-editor.packages.${pkgs.system}.zed-editor-preview
+      # inputs.zed-editor.packages.${pkgs.system}.zed-editor-preview-bin
+      pkgs.zed-editor
     ];
   }));
 in {
   home.packages = [
     inputs.nvim.packages.${pkgs.system}.default
+    inputs.depot.packages.${pkgs.system}.sandbox.figma-linux
     zed-editor
   ] ++ (with pkgs; [
     gnome-calendar
-    papers
+(figma-agent.overrideAttrs (self: super: {
+  src = fetchFromGitHub {
+    owner = "neetly";
+    repo = "figma-agent-linux";
+    rev = "274d2c098a8809d1bedc2ce815d2c3ca9d412361";
+    sha256 = "sha256-Maa5uSENWrkhgP+mcYToNxzDSMz82Sp8g1mXw9Y/Mx4=";
+  };
+  version = "0.4.3";
+
+  cargoHash = "sha256-xDmzq1PuuGp00wUCPzqYLQ5LWNeanRf8vhqvfCjYPLc=";
+  cargoDeps = pkgs.rustPlatform.fetchCargoVendor {
+    inherit (self) src;
+    name = "${self.pname}-${self.version}";
+    hash = self.cargoHash;
+    patches = self.cargoPatches or [];
+  };
+}))
+      papers
     totem
     baobab
     inkscape
@@ -52,11 +74,16 @@ in {
     bat
     htop
     silver-searcher
-    onlyoffice-bin
-    zrythm
+    onlyoffice-desktopeditors
+    # zrythm
     qjackctl
     nurl
     ungoogled-chromium
+    squads
+    zeroad
+    dig
+    virt-manager
+    virt-viewer
   ]) ++ (with sandbox; [
     gnome-music
     plattenalbum
@@ -64,6 +91,16 @@ in {
     polari
     seahorse
   ]);
+
+  xdg.desktopEntries.figma-linux = {
+    name = "Figma";
+    comment = "Figma desktop application for Linux";
+    exec = "figma-linux %U";
+    icon = "figma-linux";
+    terminal = false;
+    type = "Application";
+    mimeType = [ "x-scheme-handler/figma" ];
+  };
 
   services.swayosd = {
     enable = true;

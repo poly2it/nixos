@@ -5,15 +5,13 @@
     mullvad
     mullvad-vpn
 
-    android-udev-rules
-
     (symlinkJoin {
       name = "signal-desktop";
       paths = [ signal-desktop ];
       nativeBuildInputs = [ makeWrapper ];
       postBuild = ''
         wrapProgram "$out/bin/signal-desktop" \
-          --add-flags '--password-store="gnome-libsecret"'
+          --add-flags '--password-store="basic_text"'
       '';
     })
 
@@ -34,6 +32,7 @@
     "flathub:app/com.heroicgameslauncher.hgl//stable"
     "flathub:app/com.modrinth.ModrinthApp//stable"
     "flathub:app/com.github.tchx84.Flatseal//stable"
+    "flathub:app/org.vinegarhq.Sober//stable"
   ];
 
   services.syncthing = {

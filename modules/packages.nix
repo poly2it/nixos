@@ -15,7 +15,7 @@
 
     xdg-terminal-exec-mkhl
 
-    glxinfo
+    mesa-demos
     usbutils
     sutils
 

@@ -3,6 +3,7 @@
 {
   imports  = [
     ../home-modules/anyrun.nix
+    ../home-modules/swaync.nix
     ../home-modules/firefox.nix
     ../home-modules/fonts.nix
     ../home-modules/gnome-extensions.nix
@@ -19,4 +20,3 @@
 
   home.stateVersion = "24.11";
 }
-

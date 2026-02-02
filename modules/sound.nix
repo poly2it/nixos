@@ -21,6 +21,27 @@
         "default.clock.max-quantum" = 8192;
       };
     };
+    extraConfig.pipewire = {
+      "10-mono-loopback" = {
+        "context.modules" = [
+          {
+            name = "libpipewire-module-loopback";
+            args = {
+              "capture.props" = {
+                "audio.position" = [ "FL" "FL" ];
+                "node.target" = "alsa_input.usb-Focusrite_Scarlett_2i2_USB-00.Direct__Direct__source";
+              };
+              "playback.props" = {
+                "node.name" = "mono-microphone";
+                "node.description" = "Mono Microphone (Left Channel)";
+                "media.class" = "Audio/Source";
+                "audio.position" = [ "MONO" ];
+              };
+            };
+          }
+        ];
+      };
+    };
   };
 
   systemd.user.services.pipewire.serviceConfig = {

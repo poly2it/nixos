@@ -12,7 +12,7 @@
       flake = false;
     };
     firefox-nightly.url = "github:nix-community/flake-firefox-nightly";
-    flatpaks.url = "github:GermanBread/declarative-flatpak/stable-v3";
+    flatpaks.url = "github:GermanBread/declarative-flatpak/latest";
     anyrun = {
       url = "github:anyrun-org/anyrun";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -35,30 +35,26 @@
       inputs.firefox-gnome-theme.follows = "firefox-gnome-theme";
     };
     zed-editor.url = "github:HPsaucii/zed-editor-flake";
+    # zed-editor.url = "github:HPsaucii/zed-editor-flake?rev=c4b6e1817d1d28efa068b70d71d54d0189626ca8";
     rust-overlay = {
       url = "github:oxalica/rust-overlay";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    squads = {
+      url = "github:IanTerzo/Squads";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    depot = {
+      url = "git+ssh://forgejo@git.cenitly.com/cenitly/depot";
+      # inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = inputs @ { nixpkgs, home-manager, flatpaks, rust-overlay, ... }:
+  outputs = inputs @ { nixpkgs, home-manager, flatpaks, rust-overlay, squads, ... }:
   let
     system = "x86_64-linux";
-    pkgs = import nixpkgs {
-      inherit system;
-      overlays = [
-        (import rust-overlay)
-      ];
-      config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
-        "cuda-merged"
-        "cudatoolkit"
-        "nvidia-x11"
-        "nvidia-settings"
-        "nvidia-persistenced"
-        "modrinth-app"
-        "modrinth-app-unwrapped"
-      ];
-    };
+    pkgsFor = system: import ./packages (inputs // {inherit system;});
+    pkgs = pkgsFor system;
 
     inherit (pkgs) lib;
     mkUser = username: { configuration, home ? "/home/${username}" }: {
@@ -87,9 +83,10 @@
         ./modules/vm.nix
         ./modules/printing.nix
         ./modules/security.nix
-        ./modules/update.nix
+        ./modules/certs.nix
+        # ./modules/update.nix
         home-manager.nixosModules.home-manager
-        flatpaks.nixosModule
+        flatpaks.nixosModules.default
         {
           networking.hostName = hostname;
           users.users.gdm = { extraGroups = [ "video" ]; };
@@ -104,6 +101,13 @@
     };
   in
   {
+    devShells.${system} = {
+      default = pkgs.mkShell {
+        buildInputs = with pkgs; [
+          go
+        ];
+      };
+    };
     nixosConfigurations = {
       fractal = mkHost "fractal" {
         modules = [
@@ -123,6 +127,12 @@
           (mkUser "holst" { configuration = import ./users/holst.nix; })
         ];
       };
+    };
+    packages.${system} = {
+      inherit
+      (pkgs)
+      dynamic-certs
+      ;
     };
   };
 }
